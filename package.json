@@ -1,0 +1,19 @@
+{
+  "name": "@nucleoidjs/storage",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "gkhn",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/322332/store.git"
+  },
+  "bugs": {
+    "url": "https://github.com/322332/store/issues"
+  },
+  "homepage": "https://github.com/322332/store#readme",
+  "description": ""
+}
