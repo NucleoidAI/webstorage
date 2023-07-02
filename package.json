@@ -1,19 +1,25 @@
 {
   "name": "@nucleoidjs/storage",
   "version": "1.0.0",
+  "type": "module",
+  "description": "React storage hook",
   "main": "index.js",
+  "homepage": "https://nucleoid.com",
+  "license": "Apache-2.0",
+  "keywords": [
+    "react-storage",
+    "useStorage",
+    "storage"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "gkhn",
-  "license": "ISC",
+  "author": "NucTeam",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/322332/store.git"
+    "url": "git+https://github.com/NucleoidJS/nuc.storage.git"
   },
   "bugs": {
-    "url": "https://github.com/322332/store/issues"
-  },
-  "homepage": "https://github.com/322332/store#readme",
-  "description": ""
+    "url": "https://github.com/NucleoidJS/nuc.storage/issues"
+  }
 }

@@ -1,69 +1,38 @@
-/* eslint-disable */
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import storage from "./storage";
 
-function useLocalStorage(key, initialValue) {
-  const readValue = useCallback(() => {
-    if (typeof window === "undefined") {
+function useStorage(...args) {
+  const initialValue = args.pop();
+  const getValue = () => {
+    const item = storage.get(args);
+
+    if (item) {
+      return item;
+    } else {
+      storage.set(args, initialValue);
       return initialValue;
-    }
-
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? parseJSON(item) : initialValue;
-    } catch (error) {
-      console.warn(`Error reading localStorage key “${key}”:`, error);
-      return initialValue;
-    }
-  }, [initialValue, key]);
-
-  const [storedValue, setStoredValue] = useState(readValue());
-
-  const setValue = (value) => {
-    if (typeof window === "undefined") {
-      console.warn(`${key} not found`);
-    }
-
-    try {
-      const newValue = value instanceof Function ? value(storedValue) : value;
-      window.localStorage.setItem(key, JSON.stringify(newValue));
-
-      setStoredValue(newValue);
-    } catch (error) {
-      console.warn(`Error setting localStorage key “${key}”:`, error);
     }
   };
 
-  useEffect(() => {
-    setStoredValue(readValue());
-  }, []);
+  const [state, setState] = useState(getValue());
 
   useEffect(() => {
-    const handleStorageChange =
-      ((event) => {
-        if (event?.key && event.key !== key) {
-          return;
-        }
+    function handleStorageChange() {
+      const value = storage.get(args);
 
-        setStoredValue(readValue());
-      },
-      [key, readValue]);
+      setState(value);
+    }
 
     window.addEventListener("storage", handleStorageChange);
     window.addEventListener("local-storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("local-storage", handleStorageChange);
+    };
   }, []);
 
-  return [storedValue, setValue];
+  return [state];
 }
 
-export default useLocalStorage;
-
-function parseJSON(value) {
-  try {
-    return value === "undefined" ? undefined : JSON.parse(value ?? "");
-  } catch {
-    console.log("parsing error on", { value });
-
-    return undefined;
-  }
-}
-/* eslint-enable */
+export default useStorage;

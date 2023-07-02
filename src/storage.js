@@ -1,45 +1,29 @@
 export default class Storage {
-  static set(project, key, value) {
+  static set(...args) {
+    const value = args.pop();
+
     if (typeof value === "object") {
-      localStorage.setItem(`${project}.${key}`, JSON.stringify(value));
+      window.localStorage.setItem(args.join("."), JSON.stringify(value));
+      window.dispatchEvent(new Event("storage"));
     } else {
-      localStorage.setItem(`${project}.${key}`, value);
+      window.localStorage.setItem(args.join("."), value);
+      window.dispatchEvent(new Event("storage"));
     }
   }
 
-  static get(project, key) {
+  static get(...args) {
     try {
-      return JSON.parse(localStorage.getItem(`${project}.${key}`));
+      return JSON.parse(window.localStorage.getItem(args.join(".")));
     } catch {
-      return localStorage.getItem(`${project}.${key}`);
+      return window.localStorage.getItem(args.join("."));
     }
   }
 
-  static remove(project, key) {
-    return localStorage.removeItem(`${project}.${key}`);
-  }
-
-  static setGlobal(key, value) {
-    if (typeof value === "object") {
-      localStorage.setItem(`${key}`, JSON.stringify(value));
-    } else {
-      localStorage.setItem(`${key}`, value);
-    }
-  }
-
-  static getGlobal(key) {
-    try {
-      return JSON.parse(localStorage.getItem(`${key}`));
-    } catch {
-      return localStorage.getItem(`${key}`);
-    }
-  }
-
-  static removeGlobal(key) {
-    return localStorage.removeItem(`${key}`);
+  static remove(...args) {
+    return window.localStorage.removeItem(args.join("."));
   }
 
   static clear() {
-    return localStorage.clear();
+    return window.localStorage.clear();
   }
 }
