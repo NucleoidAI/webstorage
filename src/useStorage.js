@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
+
 import storage from "./storage";
 
 function useStorage(...args) {
   const initialValue = args.pop();
   const getValue = () => {
-    const item = storage.get(args);
+    const item = storage.get(...args);
 
     if (item) {
       return item;
     } else {
-      storage.set(args, initialValue);
+      storage.set(...args, initialValue);
       return initialValue;
     }
   };
@@ -18,8 +19,7 @@ function useStorage(...args) {
 
   useEffect(() => {
     function handleStorageChange() {
-      const value = storage.get(args);
-
+      const value = storage.get(...args);
       setState(value);
     }
 
