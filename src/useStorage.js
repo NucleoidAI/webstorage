@@ -5,7 +5,10 @@ import storage from "./storage";
 function useStorage(...args) {
   const initialValue = args.pop();
 
-  const [state, setState] = useState(null);
+  const [state, setState] = useState(() => {
+    const item = storage.get(...args);
+    return item !== null ? item : initialValue;
+  });
 
   useEffect(() => {
     if (storage.get(...args) === null) {
