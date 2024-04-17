@@ -1,6 +1,5 @@
+import storage from "./storage.js";
 import { useEffect, useState } from "react";
-
-import storage from "./storage";
 
 function useStorage(...args) {
   const initialValue = args.pop();

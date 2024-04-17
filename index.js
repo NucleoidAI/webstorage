@@ -1,3 +1,4 @@
-import storage from "./src/storage";
-import useStorage from "./src/useStorage";
+import storage from "./src/storage.js";
+import useStorage from "./src/useStorage.js";
+
 export { storage, useStorage };

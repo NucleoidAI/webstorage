@@ -1,5 +1,5 @@
 {
-  "name": "@nucleoidjs/webstorage",
+  "name": "@nucleoidai/react-storage",
   "version": "1.0.5",
   "type": "module",
   "description": "React storage hook",
